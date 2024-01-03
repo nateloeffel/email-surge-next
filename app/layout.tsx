@@ -28,7 +28,7 @@ export default function RootLayout({
 					fontSans.variable
 				)}
 			>
-				<div className="flex w-screen h-screen">
+				<div className="flex w-screen h-screen bg-slate-100">
 					<SideBar />
 					{children}
 				</div>
