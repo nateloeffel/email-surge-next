@@ -13,6 +13,10 @@ import {
 	CardHeader,
 	CardTitle,
 } from "./ui/card";
+import {
+	extractUsernameFromLinkedinUrl,
+	normalizeLinkedinUrl,
+} from "@/lib/utils";
 
 function EducationCard({ education }: { education: Education }) {
 	return (
@@ -35,8 +39,9 @@ function ExperienceCard({ experience }: { experience: Experience }) {
 			</CardHeader>
 			<CardContent>{experience.description}</CardContent>
 			<CardFooter>
-				{experience.from_date}{experience.to_date ? " - " + experience.to_date : null}
-				{ experience.location ? ": " + experience.location : null}
+				{experience.from_date}
+				{experience.to_date ? " - " + experience.to_date : null}
+				{experience.location ? ": " + experience.location : null}
 			</CardFooter>
 		</Card>
 	);
@@ -68,32 +73,90 @@ export default function ScrapeForm() {
 		setExperienceVisible(!experienceVisible);
 	};
 
-	const handleSubmit = async (e: any) => {
-		setResponseData(undefined);
-		setLoading(true);
-		if (!formData.profileUrl) return setLoading(false);
-		e.preventDefault();
+	async function submitUserProfile(profileData: UserProfile) {
+		const url = "/api/profile"; // API endpoint URL
+		const options = {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ profile: profileData }),
+		};
 
 		try {
-			const response = await fetch("http://localhost:8080/scrape", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(formData),
-			});
-
+			const response = await fetch(url, options);
 			if (!response.ok) {
-				throw new Error(`Error: ${response.status}`);
+				throw new Error(`HTTP error! Status: ${response.status}`);
+			}
+			const data = await response.json();
+			console.log("Profile created:", data);
+			return data;
+		} catch (error) {
+			console.error("Error submitting profile:", error);
+			throw error;
+		}
+	}
+
+	async function checkExistingProfiles(username: string) {
+		const url = `/api/profile/${username}`;
+
+		try {
+			const response = await fetch(url);
+
+			if (response.status === 404) {
+				return false; // Return false if the user profile is not found
 			}
 
-			const data: UserProfile = await response.json();
-			console.log("Success:", data);
-			setResponseData(data);
+			if (!response.ok) {
+				throw new Error(`HTTP error! Status: ${response.status}`);
+			}
+
+			const userProfile = await response.json();
+			return userProfile; // Assuming the response matches the UserProfile structure
 		} catch (error) {
-			console.error("Error:", error);
-			// Handle errors
+			console.error("Error fetching user profile:", error);
+			throw error; // Re-throw the error for other error statuses
 		}
+	}
+
+	const handleSubmit = async (e: any) => {
+		e.preventDefault();
+		setResponseData(undefined);
+		setLoading(true);
+
+		if (!formData.profileUrl) return setLoading(false);
+
+		// check if a profile exists in the cache
+		const newProfileUrl = normalizeLinkedinUrl(formData.profileUrl);
+		setFormData({ profileUrl: newProfileUrl ?? "" });
+		const username = extractUsernameFromLinkedinUrl(formData.profileUrl);
+		const profile = await checkExistingProfiles(username);
+		if (profile) {
+			setResponseData(profile);
+			console.log("Profile was found in cache.");
+		} else {
+			try {
+				const response = await fetch("http://localhost:8080/scrape", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(formData),
+				});
+
+				if (!response.ok) {
+					throw new Error(`Error: ${response.status}`);
+				}
+
+				const data: UserProfile = await response.json();
+				setResponseData(data);
+				submitUserProfile(data);
+			} catch (error) {
+				console.error("Error:", error);
+				// Handle errors
+			}
+		}
+
 		setLoading(false);
 	};
 

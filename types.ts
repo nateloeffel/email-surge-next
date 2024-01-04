@@ -6,7 +6,7 @@ interface Experience {
     location: string;
     description: string;
     institution_name: string;
-    linkedin_url: string;
+    linkedin_url: string | null;
 }
 
 interface Education {
@@ -15,7 +15,7 @@ interface Education {
     description: string;
     degree: string;
     institution_name: string;
-    linkedin_url: string;
+    linkedin_url?: string | null;
 }
 
 interface Interest {
@@ -46,4 +46,4 @@ interface UserProfile {
     contacts: Contact[];
     company: string | null;
     job_title: string | null;
-}
+}   

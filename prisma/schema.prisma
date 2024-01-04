@@ -51,3 +51,69 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model Experience {
+    id              Int      @id @default(autoincrement())
+    position_title  String
+    from_date       String
+    to_date         String
+    duration        String?
+    location        String
+    description     String
+    institution_name String
+    linkedin_url    String?
+    userProfileId   Int
+    UserProfile     UserProfile @relation(fields: [userProfileId], references: [id])
+}
+
+model Education {
+    id              Int      @id @default(autoincrement())
+    from_date       String?
+    to_date         String?
+    description     String
+    degree          String
+    institution_name String
+    linkedin_url    String?
+    userProfileId   Int
+    UserProfile     UserProfile @relation(fields: [userProfileId], references: [id])
+}
+
+model Interest {
+    id              Int      @id @default(autoincrement())
+    name            String
+    userProfileId   Int
+    UserProfile     UserProfile @relation(fields: [userProfileId], references: [id])
+}
+
+model Accomplishment {
+    id              Int      @id @default(autoincrement())
+    category        String
+    title           String
+    userProfileId   Int
+    UserProfile     UserProfile @relation(fields: [userProfileId], references: [id])
+}
+
+model Contact {
+    id              Int      @id @default(autoincrement())
+    name            String
+    occupation      String
+    url             String
+    userProfileId   Int
+    UserProfile     UserProfile @relation(fields: [userProfileId], references: [id])
+}
+
+model UserProfile {
+    id              Int              @id @default(autoincrement())
+    linkedin_url    String @unique
+    name            String
+    location        String
+    email           String?
+    about           String
+    experiences     Experience[]
+    educations      Education[]
+    interests       Interest[]
+    accomplishments Accomplishment[]
+    contacts        Contact[]
+    company         String?
+    job_title       String?
+}

@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { NavBar } from "@/components/NavBar";
 import { SideBar } from "@/components/SideBar";
+import SessionProvider from "@/components/SessionProvider";
 
 export const fontSans = FontSans({
 	subsets: ["latin"],
@@ -28,10 +29,12 @@ export default function RootLayout({
 					fontSans.variable
 				)}
 			>
-				<div className="flex w-screen h-screen bg-slate-100">
-					<SideBar />
-					{children}
-				</div>
+				<SessionProvider>
+					<div className="flex w-screen h-screen bg-slate-100">
+						<SideBar />
+						{children}
+					</div>
+				</SessionProvider>
 			</body>
 		</html>
 	);
