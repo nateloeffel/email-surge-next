@@ -31,3 +31,25 @@ export function extractUsernameFromLinkedinUrl(normalizedUrl: string) {
   const username = parts[parts.length - 1]; // The username should be the last part
   return username;
 }
+
+export async function checkExistingProfiles(username: string) {
+  const url = `/api/profile/${username}`;
+
+  try {
+    const response = await fetch(url);
+
+    if (response.status === 404) {
+      return false; // Return false if the user profile is not found
+    }
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const userProfile = await response.json();
+    return userProfile; // Assuming the response matches the UserProfile structure
+  } catch (error) {
+    console.error("Error fetching user profile:", error);
+    throw error; // Re-throw the error for other error statuses
+  }
+}

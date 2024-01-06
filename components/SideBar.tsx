@@ -1,6 +1,6 @@
 "use server";
 import { authOptions } from "@/lib/authOptions";
-import { MailPlus, PlusIcon, UserRoundSearch } from "lucide-react";
+import { MailPlus, PencilIcon, PlusIcon, UserRoundSearch } from "lucide-react";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
@@ -43,6 +43,11 @@ export const SideBar = async () => {
 					href="/scrape"
 					name="Scrape"
 					icon={<UserRoundSearch className="mr-3" />}
+				/>
+				<NavItem
+					href="/personalize"
+					name="Personalize"
+					icon={<PencilIcon className="mr-3" />}
 				/>
 			</nav>
 			<div className="flex justify-between items-center h-16 rounded-md hover:bg-[#114a73] w-full p-2">
