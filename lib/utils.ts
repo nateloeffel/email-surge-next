@@ -21,7 +21,7 @@ export function normalizeLinkedinUrl(linkedinUrl: string) {
 		return normalizedUrl;
 	} else {
 		// If the URL doesn't match expected pattern, return null or handle as needed
-		return null;
+		return "";
 	}
 }
 
