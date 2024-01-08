@@ -202,6 +202,9 @@ export default function ScrapeForm() {
 													(education) => {
 														return (
 															<EducationCard
+																key={
+																	education.institution_name
+																}
 																education={
 																	education
 																}
@@ -223,6 +226,9 @@ export default function ScrapeForm() {
 													(experience) => {
 														return (
 															<ExperienceCard
+																key={
+																	experience.institution_name
+																}
 																experience={
 																	experience
 																}
