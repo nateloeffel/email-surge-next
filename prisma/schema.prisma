@@ -108,7 +108,7 @@ model UserProfile {
     name            String
     location        String
     email           String?
-    about           String
+    about           String?
     experiences     Experience[]
     educations      Education[]
     interests       Interest[]

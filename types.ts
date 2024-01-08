@@ -38,7 +38,7 @@ interface UserProfile {
     name: string;
     location: string;
     email: string | null;
-    about: string;
+    about: string | null;
     experiences: Experience[];
     educations: Education[];
     interests: Interest[];
