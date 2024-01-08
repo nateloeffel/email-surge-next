@@ -27,7 +27,7 @@ export default function MainForm() {
 		e.preventDefault();
 		setLoading(true)
 		try {
-			const response = await fetch("http://localhost:8080/create", {
+			const response = await fetch("https://emailsurge.unthought.co/create", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",

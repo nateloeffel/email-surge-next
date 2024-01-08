@@ -115,7 +115,7 @@ export default function ScrapeForm() {
 			console.log("Profile was found in cache.");
 		} else {
 			try {
-				const response = await fetch("http://localhost:8080/scrape", {
+				const response = await fetch("https://emailsurge.unthought.co/scrape", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",

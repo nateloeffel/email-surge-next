@@ -58,7 +58,7 @@ export default function PersonalizeForm() {
 			console.log("Profile was found in cache.");
 			try {
 				const response = await fetch(
-					"http://localhost:8080/personalize",
+					"https://emailsurge.unthought.co/personalize",
 					{
 						method: "POST",
 						headers: {
