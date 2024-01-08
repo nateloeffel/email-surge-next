@@ -108,7 +108,7 @@ export default function ScrapeForm() {
 		// check if a profile exists in the cache
 		const newProfileUrl = normalizeLinkedinUrl(formData.profileUrl);
 		setFormData({ profileUrl: newProfileUrl ?? "" });
-		const username = extractUsernameFromLinkedinUrl(formData.profileUrl);
+		const username = extractUsernameFromLinkedinUrl(newProfileUrl);
 		const profile = await checkExistingProfiles(username);
 		if (profile) {
 			setResponseData(profile);
