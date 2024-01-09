@@ -1,4 +1,4 @@
-# Email Surge - Frontend
+# [Email Surge - Frontend](https://email-surge.com)
 Overview of Project
 ![Excalidraw Image](./docs/overview.png)
 
@@ -11,3 +11,19 @@ This is a list of all the technologies that can be found in the frontend applica
 * [Prisma](https://www.prisma.io/)
 * [PostgreSQL](https://www.postgresql.org/)
 * [ShadCN](https://ui.shadcn.com/)
+* [Vercel](https://https://vercel.com/)
+
+## Special Concepts
+Rendering Patterns
+* Server Side Rendering
+* Client Side Rendering
+* Static Site Generation
+* Partial Hydration
+
+Authentication and Security
+* Session Auth
+* OAuth 2.0
+* Encryption
+
+## Deployment
+The frontend (Next.js) code for this project was deployed to Vercel. The PostgreSQL server alongside the rest of the backend code is deployed to a Linux VPS being hosted in the cloud. 
