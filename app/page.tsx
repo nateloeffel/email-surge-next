@@ -1,11 +1,16 @@
 import MainForm from "@/components/MainForm";
 import { Button } from "@/components/ui/button";
+import { authOptions } from "@/lib/authOptions";
+import { getServerSession } from "next-auth";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 
-export default function Home() {
-	// redirect('create')
+export default async function Home() {
+  const session = await getServerSession(authOptions)
+  if (!session?.user) {
+    redirect('api/auth/signin')
+  }
 
 	return (
 		<div className="m-3 w-full">
