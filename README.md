@@ -2,6 +2,8 @@
 Overview of Project
 ![Excalidraw Image](./docs/overview.png)
 
+[How to use Email Surge](https://youtu.be/eH4tep5lYIY)
+
 ## Technologies Used
 This is a list of all the technologies that can be found in the frontend application for Email Surge.
 * [Next.js](https://nextjs.org/)
