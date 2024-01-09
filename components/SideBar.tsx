@@ -12,6 +12,7 @@ import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { ProfileDropdown } from "./ProfileDropdown";
+import { MobileProfileDropdown } from "./MobileProfileDropdown";
 
 function NavItem({
 	href,
@@ -25,7 +26,7 @@ function NavItem({
 	return (
 		<Link
 			href={href}
-			className="text-sm font-medium text-slate-200 hover:bg-[#114a73] p-1 pl-3 w-full rounded-md flex items-center"
+			className="hidden md:flex text-sm font-medium text-slate-200 hover:bg-[#114a73] p-1 pl-3 w-full rounded-md flex items-center"
 		>
 			{icon}
 			<span className="text-lg">{name}</span>
@@ -36,7 +37,7 @@ function NavItem({
 export const SideBar = async () => {
 	const session = await getServerSession(authOptions);
 	return (
-		<div className="flex flex-col justify-between items-start w-64 bg-[#003e6b]">
+		<div className="flex flex-row md:flex-col justify-between items-start w-screen md:w-64 bg-[#003e6b]">
 			<nav className="flex flex-col justify-start items-center p-2 w-full">
 				<span className="text-2xl font-medium text-white p-1 pl-3 w-full rounded-md">
 					<Link href={"/"}>Email Surge</Link>
@@ -44,7 +45,9 @@ export const SideBar = async () => {
 				<NavItem
 					href="/"
 					name="Tutorial"
-					icon={<MessageCircleQuestionIcon className="mr-3" size={20} />}
+					icon={
+						<MessageCircleQuestionIcon className="mr-3" size={20} />
+					}
 				/>
 				<NavItem
 					href="/create"
@@ -62,9 +65,9 @@ export const SideBar = async () => {
 					icon={<PencilIcon className="mr-3" />}
 				/>
 			</nav>
-			<div className="flex justify-between items-center h-16 rounded-md hover:bg-[#114a73] w-full p-2">
+			<div className="md:w-full">
 				{/* Auth */}
-
+				<MobileProfileDropdown />
 				<ProfileDropdown />
 			</div>
 		</div>

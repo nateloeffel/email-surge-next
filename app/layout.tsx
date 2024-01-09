@@ -30,7 +30,7 @@ export default function RootLayout({
 				)}
 			>
 				<SessionProvider>
-					<div className="flex w-screen h-screen bg-slate-100">
+					<div className="flex flex-col md:flex-row w-screen h-screen bg-slate-100">
 						<SideBar />
 						{children}
 					</div>

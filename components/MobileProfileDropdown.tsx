@@ -7,14 +7,18 @@ import {
 	LifeBuoy,
 	LogOut,
 	Mail,
+	MailPlus,
+	MessageCircleQuestionIcon,
 	MessageSquare,
 	MessageSquarePlus,
+	PencilIcon,
 	Plus,
 	PlusCircle,
 	Settings,
 	Sparkles,
 	User,
 	UserPlus,
+	UserRoundSearch,
 	Users,
 } from "lucide-react";
 
@@ -39,16 +43,13 @@ import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-export const ProfileDropdown = () => {
+export const MobileProfileDropdown = () => {
 	const session = useSession();
 	return (
-		<div className="hidden md:flex justify-between items-center h-16 rounded-md hover:bg-[#114a73] w-full p-2">
+		<div className="flex md:hidden justify-between items-center h-16 rounded-md hover:bg-[#114a73] w-full p-2">
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
 					<div className="w-full flex justify-between items-center">
-						<span className="text-slate-100 text-lg">
-							{session?.data?.user?.name}
-						</span>
 						<Avatar className="cursor-pointer">
 							<AvatarImage
 								src={session.data?.user?.image ?? ""}
@@ -65,44 +66,35 @@ export const ProfileDropdown = () => {
 					</div>
 				</DropdownMenuTrigger>
 				<DropdownMenuContent className="w-56">
-					{/* <DropdownMenuSeparator />
-				<DropdownMenuGroup>
-					<Link href="profile">
-						<DropdownMenuItem>
-							<User className="mr-2 h-4 w-4" />
-							<span>Profile</span>
-						</DropdownMenuItem>
-					</Link>
-					<Link href="billing">
-						<DropdownMenuItem>
-							<CreditCard className="mr-2 h-4 w-4" />
-							<span>Billing</span>
-						</DropdownMenuItem>
-					</Link>
+					<DropdownMenuSeparator />
+					<DropdownMenuGroup>
+						<Link href="/">
+							<DropdownMenuItem>
+								<MessageCircleQuestionIcon className="mr-2 h-4 w-4" />
+								<span>Tutorial</span>
+							</DropdownMenuItem>
+						</Link>
+						<Link href="create">
+							<DropdownMenuItem>
+								<MailPlus className="mr-2 h-4 w-4" />
+								<span>Create</span>
+							</DropdownMenuItem>
+						</Link>
 
-					<Link href="settings">
-						<DropdownMenuItem>
-							<Settings className="mr-2 h-4 w-4" />
-							<span>Settings</span>
-						</DropdownMenuItem>
-					</Link>
-				</DropdownMenuGroup>
-				<DropdownMenuSeparator />
-				<Link href="https://docs.google.com/forms/d/e/1FAIpQLSeVcZZ5qd1kpxLecpoK8ofeS8CQMLh5S-RISHoMPHyDCunNiQ/viewform?usp=sf_link">
-					<DropdownMenuItem>
-						<MessageSquarePlus className="mr-2 h-4 w-4" />
-						<span>Feedback</span>
-					</DropdownMenuItem>
-				</Link>
+						<Link href="scrape">
+							<DropdownMenuItem>
+								<UserRoundSearch className="mr-2 h-4 w-4" />
+								<span>Scrape</span>
+							</DropdownMenuItem>
+						</Link>
 
-				<Link href="./#support">
-					<DropdownMenuItem>
-						<LifeBuoy className="mr-2 h-4 w-4" />
-						<span>Support</span>
-					</DropdownMenuItem>
-				</Link> */}
-					<DropdownMenuLabel>My Account</DropdownMenuLabel>
-
+						<Link href="personalize">
+							<DropdownMenuItem>
+								<PencilIcon className="mr-2 h-4 w-4" />
+								<span>Personalize</span>
+							</DropdownMenuItem>
+						</Link>
+					</DropdownMenuGroup>
 					<DropdownMenuSeparator />
 					<DropdownMenuItem
 						onClick={() => {
